@@ -3,24 +3,23 @@
 #include <string.h>
 #include <unistd.h>
 #include "bash.h"
-void showPromt()
-{
-    char hostname[1024];
-    gethostname(hostname,1024);
-    printf("%s[%s%s@%s %s%s]:%sSAU> %s",WHITE,GREEN,hostname,getenv("LOGNAME"),getcwd(NULL,1024),WHITE,GREEN,WHITE);
-}
 int main()
 {
-    char* command=(char*)malloc(sizeof(char)*MAXLENGHT);
+    char* input=(char*)malloc(sizeof(char)*MAXLENGHT);
+    char* commands[MAXARGS];
     while(1)
     {
         showPromt();
-        fgets(command,MAXLENGHT,stdin);
-        if(command[strlen(command)-1]=='\n')
+        memset(stdin,'\0',MAXLENGHT);
+        memset(input,'\0',MAXLENGHT);
+        fgets(input,MAXLENGHT,stdin);
+        if(input[strlen(input)-1]=='\n')
         {
-            command[strlen(command)-1]='\0';
-            printf("%s\n",command);
+            input[strlen(input)-1]='\0';
         }
+        //fflush(stdout);
+        parseCommand(input,commands);
+        executeCommand(commands);
     } 
     return 0;
 }

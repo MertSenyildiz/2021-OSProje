@@ -11,5 +11,10 @@
 #define WHITE "\x1B[1;37m"
 
 #define MAXLENGHT 80
+#define MAXARGS 10
+
+void showPromt();
+void parseCommand(char* text,char* args[]);
+void executeCommand(char* args[]);
 
 #endif
