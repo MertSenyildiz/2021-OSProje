@@ -39,8 +39,8 @@ void executeCommand(char* args[])
             {
 
                 if(execvp(args[0],args)==-1)
-                perror("Hata:Komut icra edilemiyor");
-                exit(0);  
+                    perror("Hata:Komut icra edilemiyor");
+                _exit(0);  
             }
             else if(chpid>0)
             {
@@ -61,7 +61,7 @@ void builtin_exit(char* args[])
     if(args[1]==NULL)
     {
         printf("%s\n",args[0]);
-        exit(0);
+        _exit(0);
     }
     else
         printf("Too Many Arguments\n");

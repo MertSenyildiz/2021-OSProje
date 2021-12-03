@@ -7,6 +7,10 @@
 
 int main()
 {
+    signal(SIGINT, SIG_IGN);
+    signal(SIGTERM, SIG_IGN);
+    signal(SIGQUIT, SIG_IGN);
+    signal(SIGTSTP, SIG_IGN);
     pwd = getcwd(NULL,1024);
     char* input=(char*)malloc(sizeof(char)*MAXLENGHT);
     char* commands[MAXARGS];
