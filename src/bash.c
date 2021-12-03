@@ -61,7 +61,7 @@ void builtin_exit(char* args[])
     if(args[1]==NULL)
     {
         printf("%s\n",args[0]);
-        exit(0);
+        _exit(0);
     }
     else
         printf("Too Many Arguments\n");
@@ -80,10 +80,5 @@ void builtin_cd(char*args[])
         return;
     }
     pwd=getcwd(NULL,1024);
-}
-
-void signalHandler(int sign)
-{
-    return;
 }
 
