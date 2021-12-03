@@ -39,8 +39,8 @@ void executeCommand(char* args[])
             {
 
                 if(execvp(args[0],args)==-1)
-                perror("Hata:Komut icra edilemiyor");
-                exit(0);  
+                    perror("Hata:Komut icra edilemiyor");
+                _exit(0);  
             }
             else if(chpid>0)
             {
@@ -80,5 +80,10 @@ void builtin_cd(char*args[])
         return;
     }
     pwd=getcwd(NULL,1024);
+}
+
+void signalHandler(int sign)
+{
+    return;
 }
 
