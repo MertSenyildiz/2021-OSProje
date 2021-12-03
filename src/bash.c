@@ -16,7 +16,6 @@ void parseCommand(char* input,char* args[])
 {
     if(input[strlen(input)-1]=='\n')
         input[strlen(input)-1]='\0';
-
     args[0]=strtok(input," ");
     int token=0;
     while(args[token]!=NULL&&token<9)
@@ -26,7 +25,8 @@ void parseCommand(char* input,char* args[])
 
 void executeCommand(char* args[])
 {
-
+        if(args[0]==NULL)
+            return;
         if(strcmp(args[0],"exit")==0)
             builtin_exit(args);
         else if(strcmp(args[0],"cd")==0)
