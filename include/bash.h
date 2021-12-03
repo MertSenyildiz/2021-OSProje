@@ -13,8 +13,11 @@
 #define MAXLENGHT 80
 #define MAXARGS 10
 
+extern char* pwd;
+
 void showPromt();
 void parseCommand(char* text,char* args[]);
 void executeCommand(char* args[]);
-
+void builtin_exit(char* args[]);
+void builtin_cd(char*args[]);
 #endif

@@ -2,9 +2,12 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
+#include <signal.h>
 #include "bash.h"
+
 int main()
 {
+    pwd = getcwd(NULL,1024);
     char* input=(char*)malloc(sizeof(char)*MAXLENGHT);
     char* commands[MAXARGS];
     while(1)
@@ -13,11 +16,6 @@ int main()
         memset(stdin,'\0',MAXLENGHT);
         memset(input,'\0',MAXLENGHT);
         fgets(input,MAXLENGHT,stdin);
-        if(input[strlen(input)-1]=='\n')
-        {
-            input[strlen(input)-1]='\0';
-        }
-        //fflush(stdout);
         parseCommand(input,commands);
         executeCommand(commands);
     } 
