@@ -4,9 +4,10 @@
 #include <string.h>
 #include <sys/wait.h>
 #include "bash.h"
+
 char* pwd;
 pid_t* children;
-static int counter;
+
 void showPromt()
 {
     char hostname[1024];

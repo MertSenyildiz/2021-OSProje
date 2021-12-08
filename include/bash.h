@@ -15,6 +15,8 @@
 
 extern char* pwd;
 extern pid_t* children;
+static int counter;
+
 void showPromt();
 void parseCommand(char* text,char* args[]);
 void executeCommand(char* args[]);
