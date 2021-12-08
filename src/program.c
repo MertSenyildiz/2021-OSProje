@@ -12,7 +12,6 @@ int main()
     signal(SIGQUIT, SIG_IGN);
     signal(SIGTSTP, SIG_IGN);
     pwd = getcwd(NULL,1024);
-    children=(pid_t*)malloc(sizeof(pid_t)*1);
     char* input=(char*)malloc(sizeof(char)*MAXLENGHT);
     char* commands[MAXARGS];
     while(1)
