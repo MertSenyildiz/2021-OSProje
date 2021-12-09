@@ -4,10 +4,7 @@
 #include <string.h>
 #include <sys/wait.h>
 #include "bash.h"
-
 char* pwd;
-pid_t* children;
-
 void showPromt()
 {
     char hostname[1024];
@@ -21,7 +18,7 @@ void parseCommand(char* input,char* args[])
         input[strlen(input)-1]='\0';
     args[0]=strtok(input," ");
     int token=0;
-    while(args[token]!=NULL&&token<MAXARGS-1)
+    while(args[token]!=NULL&&token<9)
         args[++token]=strtok(NULL," ");
       
 }
@@ -34,14 +31,13 @@ void executeCommand(char* args[])
             builtin_exit(args);
         else if(strcmp(args[0],"cd")==0)
             builtin_cd(args);
-        else if(strcmp(args[0],"showpid")==0)
-            builtin_showpid(args);
         else
         {
             pid_t chpid;
             chpid=fork();
             if(chpid==0)
             {
+
                 if(execvp(args[0],args)==-1)
                     perror("Hata:Komut icra edilemiyor");
                 _exit(0);  
@@ -50,13 +46,8 @@ void executeCommand(char* args[])
             {
                 int status;
                 waitpid(chpid,&status,0);
-
                 if(status!=0)
                 printf("Child prosseste bir problem oldu\n");
-                
-                children[counter]=chpid;
-                counter++;
-                children=realloc(children,sizeof(pid_t)*(counter+1));
             }
             else
             {
@@ -68,7 +59,7 @@ void executeCommand(char* args[])
 void builtin_exit(char* args[])
 {
     if(args[1]==NULL)
-    {  
+    {
         printf("%s\n",args[0]);
         _exit(0);
     }
@@ -89,19 +80,5 @@ void builtin_cd(char*args[])
         return;
     }
     pwd=getcwd(NULL,1024);
-}
-
-void builtin_showpid(char* args[])
-{
-    if(args[1]==NULL)
-    {
-        if(counter>0)
-            for (int i = 0; i < counter; i++)
-            {
-                printf("%d\n",children[i]);
-            } 
-    }
-    else
-        printf("Too Many Arguments\n");
 }
 
