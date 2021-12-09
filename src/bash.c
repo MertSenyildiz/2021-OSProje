@@ -98,7 +98,10 @@ void builtin_showpid(char* args[])
         if(counter>0)
             for (int i = 0; i < counter; i++)
             {
-                printf("%d\n",children[i]);
+                if(kill(children[i],0)==0)
+                    printf("[%d] Running\n",children[i]);
+                else
+                    printf("[%d] Exited\n",children[i]);
             } 
     }
     else
