@@ -36,6 +36,24 @@ void executeCommand(char* args[])
             builtin_cd(args);
         else if(strcmp(args[0],"showpid")==0)
             builtin_showpid(args);
+        else if(strcmp(args[0],"sleep")==0)
+            {
+                int pid;
+                pid=fork();
+                if(pid==0)
+                {
+                    sleep(1000);
+                    kill(getpid(),9);
+                }
+                else if(pid>0)
+                {
+                    children[counter]=pid;
+                    counter++;
+                    children=realloc(children,sizeof(pid_t)*(counter+1));
+                    return;
+                }
+                
+            }
         else
         {
             pid_t chpid;
