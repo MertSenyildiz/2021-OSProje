@@ -46,5 +46,13 @@ __*Bir dizi yerleşik işlevin (buit-in functions) yürütülmesini ve diğer pr
 ```
 ## Geliştirme Sırasında Karşılaşılan Zorluklar
 ## Proje Geliştirilirken Kullanılan Kaynaklar
+> https://man7.org/linux/man-pages/man2/sigaction.2.html
+> <br>
+> https://linux.die.net/man/2/waitpid
+> <br>
+> https://www.cplusplus.com/reference/cstring/strtok/
+> <br>
+> https://www.qnx.com/developers/docs/6.5.0SP1.update/com.qnx.doc.neutrino_lib_ref/e/execvp.html
+> <br>
+> https://man7.org/linux/man-pages/man2/chdir.2.html
 
-  
