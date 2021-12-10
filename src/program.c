@@ -9,7 +9,6 @@ void initProcesses();
 
 int main()
 {
-
     /*All signals are ignored except KILL STOP and SIGCHLD signals*/
     struct sigaction act;
     act.sa_handler=SIG_IGN;
@@ -23,8 +22,6 @@ int main()
 
     for(int i=0;i<5;i++)
         initProcesses();
-
-    pwd = getcwd(NULL,1024);
 
     char* input=(char*)malloc(sizeof(char)*MAXLENGHT);
     char* commands[MAXARGS];

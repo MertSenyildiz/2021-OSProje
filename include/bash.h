@@ -14,6 +14,8 @@
 #define MAXARGS 10
 
 extern char* pwd;
+extern pid_t* children;
+static int counter;
 
 void showPromt();
 void parseCommand(char* text,char* args[]);
@@ -24,5 +26,4 @@ void builtin_exit(char* args[]);
 void builtin_cd(char* args[]);
 void builtin_showpid(char* args[]);
 void backgroundSignalHandler(int signo);
-
 #endif

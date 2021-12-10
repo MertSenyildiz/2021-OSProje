@@ -1,4 +1,4 @@
-all: compile run
+all: compile
 
 compile:
 	gcc -I ./include -c ./src/bash.c -o ./lib/bash.o
