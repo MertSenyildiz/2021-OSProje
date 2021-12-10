@@ -55,4 +55,6 @@ __*Bir dizi yerleşik işlevin (buit-in functions) yürütülmesini ve diğer pr
 > https://www.qnx.com/developers/docs/6.5.0SP1.update/com.qnx.doc.neutrino_lib_ref/e/execvp.html
 > <br>
 > https://man7.org/linux/man-pages/man2/chdir.2.html
+> <br>
+> https://www.cplusplus.com/reference/cstring/memset/
 
