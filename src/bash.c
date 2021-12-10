@@ -4,10 +4,7 @@
 #include <string.h>
 #include <sys/wait.h>
 #include "bash.h"
-
 char* pwd;
-pid_t* children;
-
 void showPromt()
 {
     char hostname[1024];
@@ -21,7 +18,7 @@ void parseCommand(char* input,char* args[])
         input[strlen(input)-1]='\0';
     args[0]=strtok(input," ");
     int token=0;
-    while(args[token]!=NULL&&token<MAXARGS-1)
+    while(args[token]!=NULL&&token<9)
         args[++token]=strtok(NULL," ");
       
 }
@@ -52,14 +49,13 @@ void executeCommand(char* args[])
             builtin_exit(args);
         else if(strcmp(args[0],"cd")==0)
             builtin_cd(args);
-        else if(strcmp(args[0],"showpid")==0)
-            builtin_showpid(args);
         else
         {
             pid_t chpid;
             chpid=fork();
             if(chpid==0)
             {
+
                 if(execvp(args[0],args)==-1)
                     printf("Komut icra edilemiyor\n");
                 _exit(0);  
@@ -179,3 +175,4 @@ void backgroundSignalHandler(int signo)
     int status;
 	waitpid(-1, &status, WNOHANG);/*Waits for children if there any*/
 }
+
