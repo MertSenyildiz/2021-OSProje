@@ -4,9 +4,9 @@ __*Bir dizi yerleşik işlevin (buit-in functions) yürütülmesini ve diğer pr
 <br>
 *__MAX__ 80 Karakter ve 10 Argüman ile çalışmaktadır.*
 <br>
-|Distro|Shell                                                                                                           |Built-in cd|Built-in exit|
-|------|----------------------------------------------------------------------------------------------------------------|-----------|-------------|
-|Fedora|![Fedora](https://user-images.githubusercontent.com/63149243/145039032-be00fdc2-7245-4696-836c-49b718c1fba2.png)|![Fedora](https://user-images.githubusercontent.com/63149243/145039034-b86daab8-9f11-4f9e-b69a-5c45c3d1db66.png)|![Fedora](https://user-images.githubusercontent.com/63149243/145039037-44c0f245-d00f-4e58-bc02-a1a5f4a34ae9.png)|
+|Distro|Shell                                                                                                           |Built-in cd|Built-in exit|Built-in showpid|
+|------|----------------------------------------------------------------------------------------------------------------|-----------|-------------|----------------|
+|Fedora|![Fedora](https://user-images.githubusercontent.com/63149243/145039032-be00fdc2-7245-4696-836c-49b718c1fba2.png)|![Fedora](https://user-images.githubusercontent.com/63149243/145039034-b86daab8-9f11-4f9e-b69a-5c45c3d1db66.png)|![Fedora](https://user-images.githubusercontent.com/63149243/145039037-44c0f245-d00f-4e58-bc02-a1a5f4a34ae9.png)|![Fedora](https://user-images.githubusercontent.com/63149243/145646022-0ae70b5e-bd4a-4764-816d-3dbb2a9ae7d6.png)|
 |Ubuntu|![Ubuntu](https://user-images.githubusercontent.com/62845685/145042391-2b2b9804-55e7-4d9e-9107-3d7b626e5b6d.png)|![Ubuntu](https://user-images.githubusercontent.com/62845685/145042396-d49f425f-75ee-4ffc-85e4-d402e49d9647.png)|![Ubuntu](https://user-images.githubusercontent.com/62845685/145042397-728faf6b-d36d-4a34-94c1-22c00459e181.png)|
 
 ## Grup Üyeleri
