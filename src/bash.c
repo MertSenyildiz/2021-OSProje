@@ -17,7 +17,7 @@ void showPromt()
 
 void parseCommand(char* input,char* args[])
 {
-    if(input[strlen(input)-1]=='\n')
+    if(input[strlen(input)-1]=='\n')/*Deletes the new line char that fgets got if there any*/
         input[strlen(input)-1]='\0';
     args[0]=strtok(input," ");
     int token=0;
@@ -26,7 +26,7 @@ void parseCommand(char* input,char* args[])
       
 }
 
-void addProssesId(pid_t pid)
+void addProcessId(pid_t pid)
 {
     children[counter]=pid;
     counter++;
@@ -40,7 +40,7 @@ void executeCommand(char* args[])
         int i=1;
         while(args[i]!=NULL)
         {
-            if(strcmp(args[i],"&")==0)
+            if(strcmp(args[i],"&")==0)/*Checks whether bash starts the program in the background or not*/
             {
                 args[i]==NULL;
                 runBackground(args);
@@ -61,18 +61,20 @@ void executeCommand(char* args[])
             if(chpid==0)
             {
                 if(execvp(args[0],args)==-1)
-                    printf("Komut icra edilemiyor");
+                    printf("Komut icra edilemiyor\n");
                 _exit(0);  
             }
             else if(chpid>0)
             {
+                addProcessId(chpid);
                 int status;
                 waitpid(chpid,&status,0);   
-                addProssesId(chpid);
+                if(status!=0)
+                    perror("");
             }
             else
             {
-                perror("Hata:Fork Hatasi");
+                perror("");
             } 
         }    
 }
@@ -81,8 +83,21 @@ void runBackground(char* args[])
 {
     if(args[0]==NULL)
         return;
+    
+    /* Catchs SIGCHLD which is a child process was terminated signal*/
+    struct sigaction act;
+	act.sa_handler = backgroundSignalHandler;
+	sigemptyset(&act.sa_mask);
+	act.sa_flags = SA_NOCLDSTOP;
+	if (sigaction(SIGCHLD,&act,NULL)<0)/*Cheks for error*/
+	{
+		perror("sigaction failed\n");
+		return;
+	}
+
     int chpid;
-   if(strcmp(args[0],"init")==0)
+    
+   if(strcmp(args[0],"init")==0)/*To create child processes for showpid*/ 
     {
        chpid=fork();
        if(chpid==0)
@@ -91,7 +106,7 @@ void runBackground(char* args[])
            {}
        }
        else if(chpid>0)
-            addProssesId(chpid); 
+            addProcessId(chpid); 
     }
     else
     {
@@ -100,13 +115,13 @@ void runBackground(char* args[])
        {
            if(execvp(args[0],args)==-1)
            {
-               perror("Hata:Komut icra edilemiyor");
-               kill(getpid(),SIGTERM);
+               printf("\nHata:Komut icra edilemiyor\n");
+               kill(getpid(),9);
            }
-           kill(getpid(),SIGTERM);
+           kill(getpid(),9);
        }
        else if(chpid>0)
-            addProssesId(chpid); 
+            addProcessId(chpid); 
     }
 }
 
@@ -116,11 +131,11 @@ void builtin_exit(char* args[])
     {  
         for(int i=0;i<counter;i++)
         {
-            int status;
-            waitpid(children[i],&status,WNOHANG);
-            kill(children[i],9);
+            if(kill(children[i],0)==0)/*Kills running children processes if any*/
+                kill(children[i],9);
         }
         printf("%s\n",args[0]);
+        free(children);
         _exit(0);
     }
     else
@@ -151,11 +166,16 @@ void builtin_showpid(char* args[])
             {
                 if(kill(children[i],0)==0)/*Sends a dummy signal to check whether child is dead or not*/
                     printf("[%d] Running\n",children[i]);
-                else
-                    printf("[%d] Exited\n",children[i]);
+                /*else
+                    printf("[%d] Exited\n",children[i]);*/
             } 
     }
     else
         printf("Too Many Arguments\n");
 }
 
+void backgroundSignalHandler(int signo) 
+{
+    int status;
+	waitpid(-1, &status, WNOHANG);/*Waits for children if there any*/
+}
