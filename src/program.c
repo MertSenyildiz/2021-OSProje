@@ -7,10 +7,13 @@
 
 int main()
 {
-    signal(SIGINT, SIG_IGN);
-    signal(SIGTERM, SIG_IGN);
-    signal(SIGQUIT, SIG_IGN);
-    signal(SIGTSTP, SIG_IGN);
+    /*All signals are ignored except KILL and Stop signals*/
+    struct sigaction act;
+    act.sa_handler=SIG_IGN;
+    for(int i=1;i<=31;i++)
+    {
+        sigaction(i,&act,NULL);
+    }
     pwd = getcwd(NULL,1024);
     children=(pid_t*)malloc(sizeof(pid_t)*1);
     char* input=(char*)malloc(sizeof(char)*MAXLENGHT);

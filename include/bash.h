@@ -20,7 +20,10 @@ static int counter;
 void showPromt();
 void parseCommand(char* text,char* args[]);
 void executeCommand(char* args[]);
+void runBackground(char* args[]);
+void addProssesId(pid_t pid);
 void builtin_exit(char* args[]);
 void builtin_cd(char* args[]);
 void builtin_showpid(char* args[]);
+void signalHandler(int signo);
 #endif

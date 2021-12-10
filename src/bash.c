@@ -26,34 +26,34 @@ void parseCommand(char* input,char* args[])
       
 }
 
+void addProssesId(pid_t pid)
+{
+    children[counter]=pid;
+    counter++;
+    children=realloc(children,sizeof(pid_t)*(counter+1));
+}
+
 void executeCommand(char* args[])
 {
         if(args[0]==NULL)
             return;
+        int i=1;
+        while(args[i]!=NULL)
+        {
+            if(strcmp(args[i],"&")==0)
+            {
+                args[i]==NULL;
+                runBackground(args);
+                return;
+            }
+            i++;
+        }
         if(strcmp(args[0],"exit")==0)
             builtin_exit(args);
         else if(strcmp(args[0],"cd")==0)
             builtin_cd(args);
         else if(strcmp(args[0],"showpid")==0)
             builtin_showpid(args);
-        else if(strcmp(args[0],"sleep")==0)
-            {
-                int pid;
-                pid=fork();
-                if(pid==0)
-                {
-                    sleep(1000);
-                    kill(getpid(),9);
-                }
-                else if(pid>0)
-                {
-                    children[counter]=pid;
-                    counter++;
-                    children=realloc(children,sizeof(pid_t)*(counter+1));
-                    return;
-                }
-                
-            }
         else
         {
             pid_t chpid;
@@ -61,20 +61,14 @@ void executeCommand(char* args[])
             if(chpid==0)
             {
                 if(execvp(args[0],args)==-1)
-                    perror("Hata:Komut icra edilemiyor");
+                    printf("Komut icra edilemiyor");
                 _exit(0);  
             }
             else if(chpid>0)
             {
                 int status;
-                waitpid(chpid,&status,0);
-
-                if(status!=0)
-                printf("Child prosseste bir problem oldu\n");
-                
-                children[counter]=chpid;
-                counter++;
-                children=realloc(children,sizeof(pid_t)*(counter+1));
+                waitpid(chpid,&status,0);   
+                addProssesId(chpid);
             }
             else
             {
@@ -83,10 +77,49 @@ void executeCommand(char* args[])
         }    
 }
 
+void runBackground(char* args[])
+{
+    if(args[0]==NULL)
+        return;
+    int chpid;
+   if(strcmp(args[0],"init")==0)
+    {
+       chpid=fork();
+       if(chpid==0)
+       {
+           while(1)
+           {}
+       }
+       else if(chpid>0)
+            addProssesId(chpid); 
+    }
+    else
+    {
+        chpid=fork();
+       if(chpid==0)
+       {
+           if(execvp(args[0],args)==-1)
+           {
+               perror("Hata:Komut icra edilemiyor");
+               kill(getpid(),SIGTERM);
+           }
+           kill(getpid(),SIGTERM);
+       }
+       else if(chpid>0)
+            addProssesId(chpid); 
+    }
+}
+
 void builtin_exit(char* args[])
 {
     if(args[1]==NULL)
     {  
+        for(int i=0;i<counter;i++)
+        {
+            int status;
+            waitpid(children[i],&status,WNOHANG);
+            kill(children[i],9);
+        }
         printf("%s\n",args[0]);
         _exit(0);
     }
@@ -116,7 +149,7 @@ void builtin_showpid(char* args[])
         if(counter>0)
             for (int i = 0; i < counter; i++)
             {
-                if(kill(children[i],0)==0)
+                if(kill(children[i],0)==0)/*Sends a dummy signal to check whether child is dead or not*/
                     printf("[%d] Running\n",children[i]);
                 else
                     printf("[%d] Exited\n",children[i]);
