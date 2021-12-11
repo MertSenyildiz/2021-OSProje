@@ -46,6 +46,19 @@ __*Bir dizi yerleşik işlevin (buit-in functions) yürütülmesini ve diğer pr
   ./bin/bash
 ```
 ## Geliştirme Sırasında Karşılaşılan Zorluklar
+> __Built-in showpid fonksiyonunun zombi process bırakmakdan gerçeklenmesi proje'nin geliştrilimesi sırasında karşılaşılan en büyük zorluktu.__
+> <br>
+> *Problem*:
+> <br>
+> Kabuk tarafından oluşturulmuş en az 5 aktif yavru proses PID’sinin ekrana yazdırılması.
+> <br>
+> *Çözüm*:
+> 1. __&__ sembolü eklenen tüm komutlar'ı arkaplanda çalıştıracak *runBackground* fonksiyonu yazıldı.
+> 2. Arkaplanda çalışacak processlerin çıkış yaptığında veya yok edildiğinde zombi'ye dönüşmemeleri için *runBackground* fonkisyonu içerisinde __SIGCHLD__ sinyali yakalandı ve parent process tarafından beklenmesi sağlandı.
+> 3. Kabuk ilk açıldığında *runBackground* fonksiyonu ile arkaplanda 5 yavru process oluşturuldu.
+> 4. Bu processlerin PID'leri bir diziye eklendi.
+> 5. Daha sonrasında açılan tüm processlerin PID'leri de bu diziye dahil edildi.
+> 6. Showpid fonksiyonunda bu dizideki processlerin durumları kontrol edildi ve aktif olarak çalışmakta olan processler ekrana yazdırıldı.
 ## Proje Geliştirilirken Kullanılan Kaynaklar
 > https://man7.org/linux/man-pages/man2/sigaction.2.html
 > <br>
