@@ -48,11 +48,11 @@ __*Bir dizi yerleşik işlevin (buit-in functions) yürütülmesini ve diğer pr
 ## Geliştirme Sırasında Karşılaşılan Zorluklar
 > __Built-in showpid fonksiyonunun zombi process bırakmakdan gerçeklenmesi proje'nin geliştrilimesi sırasında karşılaşılan en büyük zorluktu.__
 > <br>
-> *Problem*:
+> __*Problem*:__
 > <br>
 > Kabuk tarafından oluşturulmuş en az 5 aktif yavru proses PID’sinin ekrana yazdırılması.
 > <br>
-> *Çözüm*:
+> __*Çözüm*:__
 > 1. __&__ sembolü eklenen tüm komutlar'ı arkaplanda çalıştıracak *runBackground* fonksiyonu yazıldı.
 > 2. Arkaplanda çalışacak processlerin çıkış yaptığında veya yok edildiğinde zombi'ye dönüşmemeleri için *runBackground* fonkisyonu içerisinde __SIGCHLD__ sinyali yakalandı ve parent process tarafından beklenmesi sağlandı.
 > 3. Kabuk ilk açıldığında *runBackground* fonksiyonu ile arkaplanda 5 yavru process oluşturuldu.
