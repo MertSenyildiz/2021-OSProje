@@ -32,7 +32,7 @@ __*Bir dizi yerleşik işlevin (buit-in functions) yürütülmesini ve diğer pr
   + [bash.c](https://github.com/MertSenyildiz/2021-OSProje/tree/master/src/bash.c) : *Kabuk library kaynak kodları dosyası*
 * [__makefile__](https://github.com/MertSenyildiz/2021-OSProje/tree/master/makefile) : *Proje makefile*
 ## Derleme Talimatları
-*Proje derleyici olarak __gcc__ kullanmaktadır.*
+*Proje, derleyici olarak __gcc__ kullanmaktadır.*
 * __MAKEFILE__ kullanarak derleme
 ```bash
   make 
