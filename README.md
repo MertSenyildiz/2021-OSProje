@@ -48,7 +48,7 @@ __*Bir dizi yerleşik işlevin (buit-in functions) yürütülmesini ve diğer pr
   ./bin/bash
 ```
 ## Geliştirme Sırasında Karşılaşılan Zorluklar
-> __Built-in showpid fonksiyonunun zombi process bırakmakdan gerçeklenmesi proje'nin geliştrilimesi sırasında karşılaşılan en büyük zorluktu.__
+> __Built-in showpid fonksiyonunun zombi process bırakmakdan gerçeklenmesi proje'nin geliştirilmesi sırasında karşılaşılan en büyük zorluktu.__
 > <br>
 > __*Problem*:__
 > <br>
