@@ -1,4 +1,4 @@
-# 2021-OSProje Grup 25
+# 2021-OSProje Grup 25.
 ## 2021 Güz Dönemi SAU Bilgisayar Mühendisliği İşletim Sistemleri Projesi
 __*Bir dizi yerleşik işlevin (buit-in functions) yürütülmesini ve diğer proseslerin çalıştırılmasını sağlayan temel bir robust kabuk(shell).*__
 <br>
